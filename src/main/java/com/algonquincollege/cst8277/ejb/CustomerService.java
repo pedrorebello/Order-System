@@ -4,8 +4,10 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : I. Am. A. Student 040nnnnnnn
- *
+ * update by : Lillian Poon 
+ *             Mayconjohny Morais 
+ *             Pedro Mar Rebello 040960465
+ *              
  */
 package com.algonquincollege.cst8277.ejb;
 
