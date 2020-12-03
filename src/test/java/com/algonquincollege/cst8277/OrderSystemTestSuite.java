@@ -5,9 +5,7 @@
  *
  * @date 2020 10
  *
- * (Modified) @author Lillian Poon 
- *                    Mayconjohny Morais 
- *                    Pedro Mar Rebello 040960465
+ * (Modified) @author Student Name
  */
 package com.algonquincollege.cst8277;
 
