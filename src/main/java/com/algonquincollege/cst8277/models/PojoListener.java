@@ -4,9 +4,9 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277.models;
 
@@ -16,5 +16,15 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
 public class PojoListener {
+    @PrePersist
+    public void setCreatedOnDate(PojoBase base) {
+        LocalDateTime now = LocalDateTime.now();
+        base.setCreatedDate(now);
+        base.setUpdatedDate(now);
+    }
 
+    @PreUpdate
+    public void setUpdatedDate(PojoBase base) {
+        base.setUpdatedDate(LocalDateTime.now());
+    }
 }

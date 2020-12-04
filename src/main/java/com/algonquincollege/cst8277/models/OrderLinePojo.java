@@ -4,30 +4,47 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
 *
 * Description: model for the OrderLine object
 */
+@Entity(name = "OrderLine")
+@Table(name = "ORDERLINE")
+@Access(AccessType.PROPERTY) // NOTE: by using this annotations, any annotation on a field is ignored without warning
 public class OrderLinePojo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected OrderLinePk primaryKey;
     protected OrderPojo owningOrder;
     protected Double amount;
+    protected Double price;
     protected ProductPojo product;
 
     // JPA requires each @Entity class have a default constructor
     public OrderLinePojo() {
     }
 
+    @EmbeddedId
     public OrderLinePk getPk() {
         return primaryKey;
     }
@@ -35,6 +52,10 @@ public class OrderLinePojo implements Serializable {
         this.primaryKey = primaryKey;
     }
     
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "OWNING_ORDER_ID")
+    @MapsId("owningOrderId")
     public OrderPojo getOwningOrder() {
         return owningOrder;
     }
@@ -42,13 +63,24 @@ public class OrderLinePojo implements Serializable {
         this.owningOrder = owningOrder;
     }
 
+    @Column(name="AMOUNT")
     public Double getAmount() {
         return amount;
     }
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+    
+    @Column(name="PRICE")
+    public Double getPrice() {
+        return price;
+    }
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
     public ProductPojo getProduct() {
         return product;
     }

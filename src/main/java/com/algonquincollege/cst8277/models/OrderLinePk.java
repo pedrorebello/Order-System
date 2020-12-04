@@ -4,15 +4,22 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
+@Access(AccessType.PROPERTY) // NOTE: by using this annotations, any annotation on a field is ignored without warning
 public class OrderLinePk implements Serializable {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -20,6 +27,7 @@ public class OrderLinePk implements Serializable {
     protected int owningOrderId;
     protected int orderLineNo;
 
+    @Column(name="OWNING_ORDER_ID")
     public int getOwningOrderId() {
         return owningOrderId;
     }
@@ -27,6 +35,7 @@ public class OrderLinePk implements Serializable {
         this.owningOrderId = owningOrderId;
     }
 
+    @Column(name="ORDERLINE_NO")
     public int getOrderLineNo() {
         return orderLineNo;
     }
