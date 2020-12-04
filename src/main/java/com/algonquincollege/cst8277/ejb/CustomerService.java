@@ -25,6 +25,8 @@ import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_KEYSIZE;
 import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_SALTSIZE;
 import static com.algonquincollege.cst8277.utils.MyConstants.USER_ROLE;
 
+import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +70,7 @@ public class CustomerService implements Serializable {
     //TODO
 
     public List<CustomerPojo> getAllCustomers() {
-        return null;
+        return em.createNamedQuery(ALL_CUSTOMERS_QUERY_NAME, CustomerPojo.class).getResultList();
     }
 
     public CustomerPojo getCustomerById(int custPK) {

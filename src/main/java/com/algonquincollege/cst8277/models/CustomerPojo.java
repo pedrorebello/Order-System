@@ -14,11 +14,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
+
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -32,6 +35,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity(name = "Customer")
 @Table(name = "CUSTOMER")
 @AttributeOverride(name = "id", column = @Column(name = "CUST_ID"))
+@NamedQuery(name=ALL_CUSTOMERS_QUERY_NAME, query = "select c from Customer c")
 public class CustomerPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
