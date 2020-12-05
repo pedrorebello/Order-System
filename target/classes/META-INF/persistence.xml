@@ -30,7 +30,7 @@
     </properties>
   </persistence-unit>
 
-  <!--
+  <!-- 
     <persistence-unit name="test-for-jpa-errors-PU" transaction-type="RESOURCE_LOCAL">
       <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
       <exclude-unlisted-classes>false</exclude-unlisted-classes>

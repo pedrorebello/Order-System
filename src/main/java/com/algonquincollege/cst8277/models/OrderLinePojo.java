@@ -37,7 +37,6 @@ public class OrderLinePojo implements Serializable {
     protected OrderLinePk primaryKey;
     protected OrderPojo owningOrder;
     protected Double amount;
-    protected Double price;
     protected ProductPojo product;
 
     // JPA requires each @Entity class have a default constructor
@@ -71,14 +70,6 @@ public class OrderLinePojo implements Serializable {
         this.amount = amount;
     }
     
-    @Column(name="PRICE")
-    public Double getPrice() {
-        return price;
-    }
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
     public ProductPojo getProduct() {
