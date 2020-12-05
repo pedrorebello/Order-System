@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
@@ -27,9 +27,9 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 *
 * Description: model for the Product object
 */
-@Entity(name="Product")
+@Entity(name = "Product")
 @Table(name = "PRODUCT")
-@AttributeOverride(name = "id", column = @Column(name="PRODUCT_ID"))
+@AttributeOverride(name = "id", column = @Column(name = "PRODUCT_ID"))
 public class ProductPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -55,7 +55,7 @@ public class ProductPojo extends PojoBase implements Serializable {
         this.description = description;
     }
 
-    @Column(name="SERIALNUMBER")
+    @Column(name = "SERIALNUMBER")
     public String getSerialNo() {
         return serialNo;
     }

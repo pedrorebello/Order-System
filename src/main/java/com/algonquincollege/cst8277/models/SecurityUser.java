@@ -11,6 +11,8 @@
 package com.algonquincollege.cst8277.models;
 
 import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.SecurityUser.USER_FOR_OWNING_CUST_QUERY;
+import static com.algonquincollege.cst8277.models.SecurityUser.SECURITY_USER_BY_NAME_QUERY;
 
 import java.io.Serializable;
 import java.security.Principal;
@@ -25,6 +27,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -38,9 +41,16 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * User class used for (JSR-375) Java EE Security authorization/authentication
  */
-
-@Entity(name = "securityUser")
-@Table(name = "SECURIRY_USER")
+@Entity(name = "SecurityUser")
+@Table(name = "SECURITY_USER")
+@NamedQueries({
+    @NamedQuery(name = USER_FOR_OWNING_CUST_QUERY,
+                query = "SELECT c FROM SecurityUser c WHERE c.CUST_ID = :id"), // TODO Verify that query!!!
+    @NamedQuery(name = SECURITY_USER_BY_NAME_QUERY,
+                query = " SELECT c FROM SecurityUser c WHERE c.username = :name"),
+})
+//maycon's version  NamedQuery(name = USER_FOR_OWNING_CUST_QUERY, query = "select c from SecurityUser c where c.CUST_ID = :id")
+//maycon's version  NamedQuery(name = SECURITY_USER_BY_NAME_QUERY, query = "select c from SecurityUser c where c.USERNAME = :username")
 public class SecurityUser implements Serializable, Principal {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;

@@ -6,12 +6,11 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
@@ -47,7 +46,7 @@ public class CustomerPojo extends PojoBase implements Serializable {
     protected String phoneNumber;
     protected AddressPojo shippingAddress;
     protected AddressPojo billingAddress;
-    protected List<OrderPojo> orders = new ArrayList<>();
+    protected List<OrderPojo> orders;
 	
     // JPA requires each @Entity class have a default constructor
 	public CustomerPojo() {

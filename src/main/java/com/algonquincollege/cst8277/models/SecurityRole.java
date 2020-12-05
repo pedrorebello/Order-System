@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
@@ -26,8 +26,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * Role class used for (JSR-375) Java EE Security authorization/authentication
  */
-@Entity(name = "securityRole")
-@Table(name = "SECURIRY_ROLE")
+@Entity(name = "SecurityRole")
+@Table(name = "SECURITY_ROLE")
 public class SecurityRole implements Serializable {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;

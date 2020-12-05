@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.security;
 
@@ -30,6 +30,7 @@ import com.algonquincollege.cst8277.models.SecurityUser;
 /*
  * Stateless Session bean should also be a Singleton
  */
+@Singleton
 public class CustomIdentityStoreJPAHelper {
 
     public static final String CUSTOMER_PU = "20f-groupProject-PU";
@@ -41,6 +42,9 @@ public class CustomIdentityStoreJPAHelper {
         SecurityUser user = null;
         try {
             //TODO
+            user = em.createNamedQuery(SECURITY_USER_BY_NAME_QUERY, SecurityUser.class)
+                .setParameter("name", username)
+                .getSingleResult();
         }
         catch (Exception e) {
             //e.printStackTrace();
@@ -60,10 +64,12 @@ public class CustomIdentityStoreJPAHelper {
     @Transactional
     public void saveSecurityUser(SecurityUser user) {
         //TODO
+        // em.persist(user);  // ???
     }
 
     @Transactional
     public void saveSecurityRole(SecurityRole role) {
         //TODO
+        // em.persist(role);  // ???
     }
 }

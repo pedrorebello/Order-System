@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
@@ -29,9 +29,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 *
 * Description: model for the Store object
 */
-@Entity(name="Store")
+@Entity(name = "Store")
 @Table(name = "STORE")
-@AttributeOverride(name = "id", column = @Column(name="STORE_ID"))
+@AttributeOverride(name = "id", column = @Column(name = "STORE_ID"))
 public class StorePojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -54,9 +54,8 @@ public class StorePojo extends PojoBase implements Serializable {
     @ManyToMany
     @JoinTable(
         name = "STORES_PRODUCTS",
-        joinColumns = @JoinColumn(name="STORE_ID", referencedColumnName="STORE_ID"),
-        inverseJoinColumns = @JoinColumn(name="PRODUCT_ID", referencedColumnName="PRODUCT_ID")
-    )
+        joinColumns = @JoinColumn(name = "STORE_ID", referencedColumnName = "STORE_ID"),
+        inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID"))
     public Set<ProductPojo> getProducts() {
         return products;
     }

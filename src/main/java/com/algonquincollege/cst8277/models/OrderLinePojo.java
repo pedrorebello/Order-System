@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 */
 @Entity(name = "OrderLine")
 @Table(name = "ORDERLINE")
-@Access(AccessType.PROPERTY) // NOTE: by using this annotations, any annotation on a field is ignored without warning
+@Access(AccessType.PROPERTY)
 public class OrderLinePojo implements Serializable {
     private static final long serialVersionUID = 1L;
 

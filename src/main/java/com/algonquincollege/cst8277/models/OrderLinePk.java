@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
@@ -27,7 +27,7 @@ public class OrderLinePk implements Serializable {
     protected int owningOrderId;
     protected int orderLineNo;
 
-    @Column(name="OWNING_ORDER_ID")
+    @Column(name = "OWNING_ORDER_ID")
     public int getOwningOrderId() {
         return owningOrderId;
     }
@@ -35,7 +35,7 @@ public class OrderLinePk implements Serializable {
         this.owningOrderId = owningOrderId;
     }
 
-    @Column(name="ORDERLINE_NO")
+    @Column(name = "ORDERLINE_NO")
     public int getOrderLineNo() {
         return orderLineNo;
     }
