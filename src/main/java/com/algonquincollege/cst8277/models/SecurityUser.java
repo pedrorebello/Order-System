@@ -45,7 +45,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Table(name = "SECURITY_USER")
 @NamedQueries({
     @NamedQuery(name = USER_FOR_OWNING_CUST_QUERY,
-                query = "SELECT c FROM SecurityUser c WHERE c.CUST_ID = :id"), // TODO Verify that query!!!
+                query = "SELECT u FROM SecurityUser u JOIN Customer c WHERE c.id = :id"), // TODO Verify that query!!!
     @NamedQuery(name = SECURITY_USER_BY_NAME_QUERY,
                 query = " SELECT c FROM SecurityUser c WHERE c.username = :name"),
 })
