@@ -12,16 +12,13 @@ package com.algonquincollege.cst8277.rest;
 import static com.algonquincollege.cst8277.utils.MyConstants.ADMIN_ROLE;
 import static com.algonquincollege.cst8277.utils.MyConstants.CUSTOMER_RESOURCE_NAME;
 import static com.algonquincollege.cst8277.utils.MyConstants.RESOURCE_PATH_ID_ELEMENT;
-import static com.algonquincollege.cst8277.utils.MyConstants.RESOURCE_PATH_ID_PATH;
 import static com.algonquincollege.cst8277.utils.MyConstants.USER_ROLE;
-import static com.algonquincollege.cst8277.utils.MyConstants.CUSTOMER_ADDRESS_RESOURCE_PATH;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
 import static javax.ws.rs.core.Response.Status.OK;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.security.enterprise.SecurityContext;
@@ -30,8 +27,6 @@ import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -49,7 +44,7 @@ import com.algonquincollege.cst8277.models.SecurityUser;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CustomerResource {
-
+    @EJB
     protected CustomerService customerServiceBean;
 
     @Inject
@@ -57,7 +52,7 @@ public class CustomerResource {
 
     @Inject
     protected SecurityContext sc;
-
+    @GET
     public Response getCustomers() {
         servletContext.log("retrieving all customers ...");
         List<CustomerPojo> custs = customerServiceBean.getAllCustomers();

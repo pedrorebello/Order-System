@@ -15,6 +15,10 @@ import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 import com.algonquincollege.cst8277.rest.SecurityRoleSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,7 +28,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * User class used for (JSR-375) Java EE Security authorization/authentication
  */
-
+@Entity(name = "SecurityUser")
+@Table(name = "SECURITY_USER")
 public class SecurityUser implements Serializable, Principal {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -68,13 +73,14 @@ public class SecurityUser implements Serializable, Principal {
     
     @JsonInclude(Include.NON_NULL)
     @JsonSerialize(using = SecurityRoleSerializer.class)
+    @ManyToMany(mappedBy = "users")
     public Set<SecurityRole> getRoles() {
         return roles;
     }
     public void setRoles(Set<SecurityRole> roles) {
         this.roles = roles;
     }
-
+    
     public CustomerPojo getCustomer() {
         return cust;
     }

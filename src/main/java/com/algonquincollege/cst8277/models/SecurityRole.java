@@ -13,6 +13,12 @@ package com.algonquincollege.cst8277.models;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -20,6 +26,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * Role class used for (JSR-375) Java EE Security authorization/authentication
  */
+@Entity(name = "SecurityRole")
+@Table(name = "SECURITY_ROLE")
 public class SecurityRole implements Serializable {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -49,6 +57,11 @@ public class SecurityRole implements Serializable {
     }
 
     @JsonInclude(Include.NON_NULL)
+    @ManyToMany
+    @JoinTable(
+        name = "SECURITY_USER_SECURITY_ROLE",
+        joinColumns = @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID"),
+        inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID"))
     public Set<SecurityUser> getUsers() {
         return users;
     }

@@ -24,6 +24,8 @@ import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_KEYSIZE;
 import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_SALTSIZE;
 import static com.algonquincollege.cst8277.utils.MyConstants.USER_ROLE;
 
+import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -58,16 +60,16 @@ public class CustomerService implements Serializable {
     
     public static final String CUSTOMER_PU = "20f-groupProject-PU";
 
-    @PersistenceContext(name  = CUSTOMER_PU)
+    @PersistenceContext(name = CUSTOMER_PU)
     protected EntityManager em;
 
     @Inject
     protected Pbkdf2PasswordHash pbAndjPasswordHash;
     
     //TODO
-
+    // all the customers
     public List<CustomerPojo> getAllCustomers() {
-        return null;
+        return em.createNamedQuery(ALL_CUSTOMERS_QUERY_NAME, CustomerPojo.class).getResultList();
     }
 
     public CustomerPojo getCustomerById(int custPK) {
