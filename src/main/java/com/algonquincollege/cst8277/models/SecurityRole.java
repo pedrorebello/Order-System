@@ -13,7 +13,9 @@ package com.algonquincollege.cst8277.models;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -41,7 +43,8 @@ public class SecurityRole implements Serializable {
     public SecurityRole() {
         super();
     }
-
+    @Id
+    @Column(name = "ROLE_ID")
     public int getId() {
         return id;
     }
