@@ -4,9 +4,9 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277.security;
 
@@ -32,6 +32,9 @@ import com.algonquincollege.cst8277.models.SecurityUser;
  */
 public class CustomIdentityStoreJPAHelper {
 
+    public static final String CUSTOMER_PU = "20f-groupProject-PU";
+
+    @PersistenceContext(name = CUSTOMER_PU)
     protected EntityManager em;
 
     public SecurityUser findUserByName(String username) {

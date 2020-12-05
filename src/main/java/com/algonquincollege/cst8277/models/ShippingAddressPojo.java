@@ -4,14 +4,19 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("S")
 public class ShippingAddressPojo extends AddressPojo implements Serializable  {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;

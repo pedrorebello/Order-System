@@ -4,19 +4,34 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
 *
 * Description: model for the Order object
 */
+@Entity(name = "Order")
+@Table(name = "ORDER_TBL")
+@AttributeOverride(name = "id", column = @Column(name="ORDER_ID"))
 public class OrderPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -27,7 +42,9 @@ public class OrderPojo extends PojoBase implements Serializable {
     // JPA requires each @Entity class have a default constructor
 	public OrderPojo() {
 	}
+
 	
+    @Column(name="DESCRIPTION")
     public String getDescription() {
         return description;
     }
@@ -35,6 +52,8 @@ public class OrderPojo extends PojoBase implements Serializable {
         this.description = description;
     }
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "owningOrder", cascade = CascadeType.ALL)
 	public List<OrderLinePojo> getOrderlines() {
 		return this.orderlines;
 	}
@@ -52,6 +71,9 @@ public class OrderPojo extends PojoBase implements Serializable {
 		return orderline;
 	}
 
+	@JsonBackReference
+	@ManyToOne
+    @JoinColumn(name = "OWNING_CUST_ID")
 	public CustomerPojo getOwningCustomer() {
 		return this.owningCustomer;
 	}

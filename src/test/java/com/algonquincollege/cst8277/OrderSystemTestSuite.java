@@ -5,9 +5,9 @@
  *
  * @date 2020 10
  *
- * (Modified) @author Lillian Poon 
- *                    Mayconjohny Morais 
- *                    Pedro Mar Rebello 040960465
+ * (Modified) @author Maycon Morais - 040944820
+ *                    Pedro Rebello - 040960465
+ *                    Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277;
 

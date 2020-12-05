@@ -4,15 +4,21 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -31,6 +37,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @Type(value = ShippingAddressPojo.class, name = "S")
 })
 @Entity(name="Address")
+@Table(name = "CUST_ADDR")
+@AttributeOverride(name = "id", column = @Column(name = "ADDR_ID"))
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "ADDR_TYPE", columnDefinition = "VARCHAR", length = 1)
 public abstract class AddressPojo extends PojoBase implements Serializable {
 
     /** explicit set serialVersionUID */
@@ -49,6 +59,7 @@ public abstract class AddressPojo extends PojoBase implements Serializable {
         super();
     }
 
+    @Column(name = "CITY")
     public String getCity() {
         return city;
     }
@@ -56,6 +67,7 @@ public abstract class AddressPojo extends PojoBase implements Serializable {
         this.city = city;
     }
 
+    @Column(name = "COUNTRY")
     public String getCountry() {
         return country;
     }
@@ -63,6 +75,7 @@ public abstract class AddressPojo extends PojoBase implements Serializable {
         this.country = country;
     }
 
+    @Column(name = "POSTAL")
     public String getPostal() {
         return postal;
     }
@@ -70,6 +83,7 @@ public abstract class AddressPojo extends PojoBase implements Serializable {
         this.postal = postal;
     }
 
+    @Column(name = "STATE")
     public String getState() {
         return state;
     }
@@ -77,6 +91,7 @@ public abstract class AddressPojo extends PojoBase implements Serializable {
         this.state = state;
     }
 
+    @Column(name = "STREET")
     public String getStreet() {
         return street;
     }

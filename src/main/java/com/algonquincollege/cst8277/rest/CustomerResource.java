@@ -4,9 +4,9 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  *
  */
 package com.algonquincollege.cst8277.rest;
@@ -52,6 +52,7 @@ import com.algonquincollege.cst8277.models.SecurityUser;
 @Produces(MediaType.APPLICATION_JSON)
 public class CustomerResource {
 
+    @EJB
     protected CustomerService customerServiceBean;
 
     @Inject
@@ -60,6 +61,7 @@ public class CustomerResource {
     @Inject
     protected SecurityContext sc;
 
+    @GET
     public Response getCustomers() {
         servletContext.log("retrieving all customers ...");
         List<CustomerPojo> custs = customerServiceBean.getAllCustomers();

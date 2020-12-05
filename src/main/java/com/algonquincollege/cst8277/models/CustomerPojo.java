@@ -4,20 +4,38 @@
  *
  * @author (original) Mike Norman
  * 
- * update by : Lillian Poon 
- *             Mayconjohny Morais 
- *             Pedro Mar Rebello 040960465
+ * update by : Maycon Morais - 040944820
+ *             Pedro Rebello - 040960465
+ *             Lillian Poon   - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
 *
 * Description: model for the Customer object
 */
+@Entity(name = "Customer")
+@Table(name = "CUSTOMER")
+@AttributeOverride(name = "id", column = @Column(name = "CUST_ID"))
+@NamedQuery(name=ALL_CUSTOMERS_QUERY_NAME, query = "select c from Customer c")
 public class CustomerPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -29,6 +47,7 @@ public class CustomerPojo extends PojoBase implements Serializable {
     protected String phoneNumber;
     protected AddressPojo shippingAddress;
     protected AddressPojo billingAddress;
+    protected List<OrderPojo> orders = new ArrayList<>();
 	
     // JPA requires each @Entity class have a default constructor
 	public CustomerPojo() {
@@ -62,6 +81,7 @@ public class CustomerPojo extends PojoBase implements Serializable {
         this.lastName = lastName;
     }
 
+    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
@@ -69,6 +89,7 @@ public class CustomerPojo extends PojoBase implements Serializable {
         this.email = email;
     }
 
+    @Column(name = "PHONENUMBER")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -76,8 +97,8 @@ public class CustomerPojo extends PojoBase implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    //dont use CascadeType.All (skipping CascadeType.REMOVE): what if two customers
-    //live at the same address and 1 leaves the house but the other does not?
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "SHIPPING_ADDR")
     public AddressPojo getShippingAddress() {
         return shippingAddress;
     }
@@ -85,11 +106,31 @@ public class CustomerPojo extends PojoBase implements Serializable {
         this.shippingAddress = shippingAddress;
     }
 
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinColumn(name = "BILLING_ADDR")
     public AddressPojo getBillingAddress() {
         return billingAddress;
     }
     public void setBillingAddress(AddressPojo billingAddress) {
         this.billingAddress = billingAddress;
+    }
+    
+    @JsonManagedReference
+    @OneToMany(mappedBy = "owningCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<OrderPojo> getOrders() {
+        return orders;
+    }
+    public void setOrders(List<OrderPojo> orders) {
+        this.orders = orders;
+    }
+    public void addOrder(OrderPojo order) {
+        getOrders().add(order);
+        order.setOwningCustomer(this);
+    }
+    public OrderPojo removeOrder(OrderPojo order) {
+        getOrders().remove(order);
+        order.setOwningCustomer(null);
+        return order;
     }
 
     @Override
