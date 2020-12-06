@@ -100,7 +100,7 @@ public class SecurityUser implements Serializable, Principal {
     @JsonSerialize(using = SecurityRoleSerializer.class)
     @ManyToMany
     @JoinTable(
-        name = "SECURIRY_USER_SECURIRY_ROLE",
+        name = "SECURITY_USER_SECURITY_ROLE",
         joinColumns = @JoinColumn(name="USER_ID", referencedColumnName="USER_ID"),
         inverseJoinColumns = @JoinColumn(name="ROLE_ID", referencedColumnName="ROLE_ID")
     )

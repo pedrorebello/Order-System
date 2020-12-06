@@ -22,6 +22,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
@@ -94,7 +95,6 @@ public class OrderSystemTestSuite {
     @Test
     public void test01_all_customers_with_adminrole() throws JsonMappingException, JsonProcessingException {
         Response response = webTarget
-            //.register(userAuth)
             .register(adminAuth)
             .path(CUSTOMER_RESOURCE_NAME)
             .request()
@@ -103,15 +103,25 @@ public class OrderSystemTestSuite {
         List<CustomerPojo> custs = response.readEntity(new GenericType<List<CustomerPojo>>(){});
         assertThat(custs, is(not(empty())));
         //TODO - depending on what is in your Db when you run this, you may need to change the next line
-        assertThat(custs, hasSize(3));
+        assertThat(custs, hasSize(6));
     }
     
     // TODO - create39 more test-cases that send GET/PUT/POST/DELETE messages
     // to REST'ful endpoints for the OrderSystem entities using the JAX-RS
     // ClientBuilder APIs
 
-    public void test02_something() {
-    }
+    @Test
+    public void test02_all_customers_with_userrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+//            .register(adminAuth)
+            .register(userAuth)
+            .path(CUSTOMER_RESOURCE_NAME)
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(401));
+        List<CustomerPojo> custs = response.readEntity(new GenericType<List<CustomerPojo>>(){});
+        assertNull(custs);
+   }
     
     public void test03_something() {
     }

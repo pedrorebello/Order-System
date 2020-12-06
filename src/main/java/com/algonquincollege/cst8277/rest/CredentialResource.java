@@ -57,5 +57,4 @@ public class CredentialResource {
         }
         return response;
     }
-
 }

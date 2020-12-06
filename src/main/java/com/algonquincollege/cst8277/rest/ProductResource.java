@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -32,12 +33,13 @@ import com.algonquincollege.cst8277.ejb.CustomerService;
 import com.algonquincollege.cst8277.models.ProductPojo;
 
 @Path(PRODUCT_RESOURCE_NAME)
-//@Consumes(MediaType.APPLICATION_JSON)
-//@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class ProductResource {
 
+    @EJB
     protected CustomerService customerServiceBean;
-
+    
     @Inject
     protected ServletContext servletContext;
 
