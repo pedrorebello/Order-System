@@ -152,5 +152,4 @@ public class SecurityUser implements Serializable, Principal {
         }
         return true;
     }
-
 }

@@ -15,6 +15,15 @@ import static com.algonquincollege.cst8277.utils.MyConstants.PARAM1;
 import static com.algonquincollege.cst8277.utils.MyConstants.PU_NAME;
 import static java.util.Collections.emptySet;
 
+import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_ALGORITHM;
+import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_PROPERTY_ALGORITHM;
+import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_ITERATIONS;
+import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_PROPERTY_ITERATIONS;
+import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_SALTSIZE;
+import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_SALT_SIZE;
+import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_KEYSIZE;
+import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_KEY_SIZE;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,10 +47,14 @@ public class CustomIdentityStoreJPAHelper {
     @PersistenceContext(name = CUSTOMER_PU)
     protected EntityManager em;
 
+    @Inject
+    protected Pbkdf2PasswordHash pbAndjPasswordHash;
+    
     public SecurityUser findUserByName(String username) {
         SecurityUser user = null;
         try {
             //TODO
+
             user = em.createNamedQuery(SECURITY_USER_BY_NAME_QUERY, SecurityUser.class)
                 .setParameter("name", username)
                 .getSingleResult();
@@ -64,12 +77,12 @@ public class CustomIdentityStoreJPAHelper {
     @Transactional
     public void saveSecurityUser(SecurityUser user) {
         //TODO
-        // em.persist(user);  // ???
+        em.persist(user);
     }
 
     @Transactional
     public void saveSecurityRole(SecurityRole role) {
         //TODO
-        // em.persist(role);  // ???
+        em.persist(role);
     }
 }

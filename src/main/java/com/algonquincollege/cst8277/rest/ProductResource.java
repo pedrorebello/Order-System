@@ -31,6 +31,9 @@ import javax.ws.rs.core.Response;
 import com.algonquincollege.cst8277.ejb.CustomerService;
 import com.algonquincollege.cst8277.models.ProductPojo;
 
+@Path(PRODUCT_RESOURCE_NAME)
+//@Consumes(MediaType.APPLICATION_JSON)
+//@Produces(MediaType.APPLICATION_JSON)
 public class ProductResource {
 
     protected CustomerService customerServiceBean;
