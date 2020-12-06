@@ -42,6 +42,7 @@ public class StoreResource {
     @Inject
     protected ServletContext servletContext;
 
+    @GET
     public Response getStores() {
         servletContext.log("retrieving all stores ...");
         List<StorePojo> stores = customerServiceBean.getAllStores();

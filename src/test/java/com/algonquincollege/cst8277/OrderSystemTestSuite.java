@@ -13,6 +13,7 @@ package com.algonquincollege.cst8277;
 
 import static com.algonquincollege.cst8277.utils.MyConstants.APPLICATION_API_VERSION;
 import static com.algonquincollege.cst8277.utils.MyConstants.CUSTOMER_RESOURCE_NAME;
+import static com.algonquincollege.cst8277.utils.MyConstants.PRODUCT_RESOURCE_NAME;
 import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_ADMIN_USER;
 import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_ADMIN_USER_PASSWORD;
 import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_USER_PASSWORD;
@@ -22,6 +23,7 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.lang.invoke.MethodHandles;
@@ -48,6 +50,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.algonquincollege.cst8277.models.CustomerPojo;
+import com.algonquincollege.cst8277.models.ProductPojo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -113,32 +116,80 @@ public class OrderSystemTestSuite {
     @Test
     public void test02_all_customers_with_userrole() throws JsonMappingException, JsonProcessingException {
         Response response = webTarget
-//            .register(adminAuth)
             .register(userAuth)
             .path(CUSTOMER_RESOURCE_NAME)
             .request()
             .get();
         assertThat(response.getStatus(), is(401));
-        List<CustomerPojo> custs = response.readEntity(new GenericType<List<CustomerPojo>>(){});
-        assertNull(custs);
    }
     
-    public void test03_something() {
-    }
-
-    public void test04_something() {
+    @Test
+    public void test03_customer_by_id_with_adminrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path(CUSTOMER_RESOURCE_NAME + "/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+        CustomerPojo cust = response.readEntity(new GenericType<CustomerPojo>(){});
+        assertNotNull(cust);
+        assertThat(cust.getFirstName(), is("pedro1"));
     }
     
-    public void test05_something() {
-    }
-
-    public void test06_something() {
+    @Test
+    public void test04_customer_by_id_with_userrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path(CUSTOMER_RESOURCE_NAME + "/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(401));
     }
     
-    public void test07_something() {
+    @Test
+    public void test05_all_products_with_adminrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path(PRODUCT_RESOURCE_NAME)
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+        List<ProductPojo> prods = response.readEntity(new GenericType<List<ProductPojo>>(){});
+        assertThat(prods, is(not(empty())));
+        assertThat(prods, hasSize(6));
     }
-
-    public void test08_something() {
+    
+    @Test
+    public void test06_all_product_with_userrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path(PRODUCT_RESOURCE_NAME)
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(401));
+   }
+    
+    @Test
+    public void test07_product_by_id_with_adminrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path(PRODUCT_RESOURCE_NAME + "/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+        ProductPojo prod = response.readEntity(new GenericType<ProductPojo>(){});
+        assertNotNull(prod);
+        assertThat(prod.getSerialNo(), is("Serial 1"));
+    }
+    
+    @Test
+    public void test08_product_by_id_with_userrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path(PRODUCT_RESOURCE_NAME + "/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(401));
     }
     
     public void test09_something() {

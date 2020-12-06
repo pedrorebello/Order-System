@@ -26,6 +26,9 @@ import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_SALTSIZE;
 import static com.algonquincollege.cst8277.utils.MyConstants.USER_ROLE;
 
 import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.CustomerPojo.CUSTOMER_BY_ID_QUERY;
+import static com.algonquincollege.cst8277.models.ProductPojo.ALL_PRODUCTS_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.ProductPojo.PRODUCT_BY_ID_QUERY;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -74,11 +77,14 @@ public class CustomerService implements Serializable {
     }
 
     public CustomerPojo getCustomerById(int custPK) {
-        return null;
+        return em.createNamedQuery(CUSTOMER_BY_ID_QUERY, CustomerPojo.class)
+            .setParameter("id", custPK)
+            .getSingleResult();
     }
     
     @Transactional
     public CustomerPojo persistCustomer(CustomerPojo newCustomer) {
+        em.persist(newCustomer); // ???
         return null;
     }
     
@@ -132,7 +138,9 @@ public class CustomerService implements Serializable {
     }
 
     public ProductPojo getProductById(int prodId) {
-        return null;
+        return em.createNamedQuery(PRODUCT_BY_ID_QUERY, ProductPojo.class)
+            .setParameter("id", prodId)
+            .getSingleResult();
     }
 
     public List<StorePojo> getAllStores() {

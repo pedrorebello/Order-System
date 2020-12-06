@@ -68,7 +68,10 @@ public class CustomerResource {
         Response response = Response.ok(custs).build();
         return response;
     }
-
+       
+    @RolesAllowed({ADMIN_ROLE})
+    @GET
+    @Path(RESOURCE_PATH_ID_PATH)
     public Response getCustomerById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
         servletContext.log("try to retrieve specific customer " + id);
         Response response = null;
@@ -105,6 +108,7 @@ public class CustomerResource {
       return response;
     }
 
+    @Transactional
     public Response addAddressForCustomer(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, AddressPojo newAddress) {
       Response response = null;
       CustomerPojo updatedCustomer = customerServiceBean.setAddressFor(id, newAddress);
@@ -113,5 +117,12 @@ public class CustomerResource {
     }
     
     //TODO - endpoints for setting up Orders/OrderLines
+    @Transactional
+    public Response addOrder(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, AddressPojo newAddress) {
+      Response response = null;
+      CustomerPojo updatedCustomer = customerServiceBean.setAddressFor(id, newAddress);
+      response = Response.ok(updatedCustomer).build();
+      return response;
+    }
 
 }
