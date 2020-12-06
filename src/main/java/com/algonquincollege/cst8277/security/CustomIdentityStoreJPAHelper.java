@@ -28,9 +28,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import javax.transaction.Transactional;
 
 import com.algonquincollege.cst8277.models.SecurityRole;
@@ -47,8 +49,8 @@ public class CustomIdentityStoreJPAHelper {
     @PersistenceContext(name = CUSTOMER_PU)
     protected EntityManager em;
 
-    @Inject
-    protected Pbkdf2PasswordHash pbAndjPasswordHash;
+//    @Inject
+//    protected Pbkdf2PasswordHash pbAndjPasswordHash;
     
     public SecurityUser findUserByName(String username) {
         SecurityUser user = null;
