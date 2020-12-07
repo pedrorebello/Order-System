@@ -11,7 +11,7 @@
 package com.algonquincollege.cst8277.models;
 
 import static com.algonquincollege.cst8277.models.ProductPojo.ALL_PRODUCTS_QUERY_NAME;
-import static com.algonquincollege.cst8277.models.ProductPojo.PRODUCT_BY_ID_QUERY;
+import static com.algonquincollege.cst8277.models.ProductPojo.PRODUCT_BY_ID_QUERY_NAME;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -36,14 +36,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Table(name = "PRODUCT")
 @AttributeOverride(name = "id", column = @Column(name = "PRODUCT_ID"))
 @NamedQueries({
-    @NamedQuery(name = ALL_PRODUCTS_QUERY_NAME, query = "select c from Product c"),
-    @NamedQuery(name = PRODUCT_BY_ID_QUERY, query = "select c from Product c where c.id = :id")
+    @NamedQuery(name = ALL_PRODUCTS_QUERY_NAME, query = "select p from Product p"),
+    @NamedQuery(name = PRODUCT_BY_ID_QUERY_NAME, query = "select p from Product p where p.id = :id")
 })
 public class ProductPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public static final String ALL_PRODUCTS_QUERY_NAME = "allCustomers";
-    public static final String PRODUCT_BY_ID_QUERY = "customersById";
+    public static final String PRODUCT_BY_ID_QUERY_NAME = "customerById";
     
     protected String description;
     protected String serialNo;

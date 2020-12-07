@@ -7,13 +7,14 @@
  *
  * (Modified) @author Maycon Morais - 040944820
  *                    Pedro Rebello - 040960465
- *                    Lillian Poon   - 040...
+ *                    Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277;
 
 import static com.algonquincollege.cst8277.utils.MyConstants.APPLICATION_API_VERSION;
 import static com.algonquincollege.cst8277.utils.MyConstants.CUSTOMER_RESOURCE_NAME;
 import static com.algonquincollege.cst8277.utils.MyConstants.PRODUCT_RESOURCE_NAME;
+import static com.algonquincollege.cst8277.utils.MyConstants.STORE_RESOURCE_NAME;
 import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_ADMIN_USER;
 import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_ADMIN_USER_PASSWORD;
 import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_USER_PASSWORD;
@@ -51,6 +52,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.algonquincollege.cst8277.models.CustomerPojo;
 import com.algonquincollege.cst8277.models.ProductPojo;
+import com.algonquincollege.cst8277.models.StorePojo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -156,11 +158,11 @@ public class OrderSystemTestSuite {
         assertThat(response.getStatus(), is(200));
         List<ProductPojo> prods = response.readEntity(new GenericType<List<ProductPojo>>(){});
         assertThat(prods, is(not(empty())));
-        assertThat(prods, hasSize(6));
+        assertThat(prods, hasSize(4));
     }
     
     @Test
-    public void test06_all_product_with_userrole() throws JsonMappingException, JsonProcessingException {
+    public void test06_all_products_with_userrole() throws JsonMappingException, JsonProcessingException {
         Response response = webTarget
             .register(userAuth)
             .path(PRODUCT_RESOURCE_NAME)
@@ -192,16 +194,50 @@ public class OrderSystemTestSuite {
         assertThat(response.getStatus(), is(401));
     }
     
-    public void test09_something() {
+    @Test
+    public void test09_all_stores_with_adminrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path(STORE_RESOURCE_NAME)
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+        List<StorePojo> stores = response.readEntity(new GenericType<List<StorePojo>>(){});
+        assertThat(stores, is(not(empty())));
+        assertThat(stores, hasSize(2));
     }
     
-    public void test10_something() {
+    @Test
+    public void test10_all_stores_with_userrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path(STORE_RESOURCE_NAME)
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(401));
+   }
+    
+    @Test
+    public void test11_store_by_id_with_adminrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(adminAuth)
+            .path(STORE_RESOURCE_NAME + "/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(200));
+        StorePojo store = response.readEntity(new GenericType<StorePojo>(){});
+        assertNotNull(store);
+        assertThat(store.getStoreName(), is("store1"));
     }
-
-    public void test11_something() {
-    }
-
-    public void test12_something() {
+    
+    @Test
+    public void test12_store_by_id_with_userrole() throws JsonMappingException, JsonProcessingException {
+        Response response = webTarget
+            .register(userAuth)
+            .path(STORE_RESOURCE_NAME + "/1")
+            .request()
+            .get();
+        assertThat(response.getStatus(), is(401));
     }
     
     public void test13_something() {

@@ -40,7 +40,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
     @NamedQuery(name = ALL_CUSTOMERS_QUERY_NAME, query = "select c from Customer c"),
     @NamedQuery(name = CUSTOMER_BY_ID_QUERY, query = "select c from Customer c where c.id = :id")
 })
-
 public class CustomerPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 

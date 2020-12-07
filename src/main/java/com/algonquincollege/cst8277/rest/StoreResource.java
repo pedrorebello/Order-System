@@ -11,14 +11,18 @@
  */
 package com.algonquincollege.cst8277.rest;
 
+import static com.algonquincollege.cst8277.utils.MyConstants.ADMIN_ROLE;
 import static com.algonquincollege.cst8277.utils.MyConstants.RESOURCE_PATH_ID_ELEMENT;
 import static com.algonquincollege.cst8277.utils.MyConstants.RESOURCE_PATH_ID_PATH;
 import static com.algonquincollege.cst8277.utils.MyConstants.STORE_RESOURCE_NAME;
+import static com.algonquincollege.cst8277.utils.MyConstants.USER_ROLE;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -42,6 +46,9 @@ public class StoreResource {
     @Inject
     protected ServletContext servletContext;
 
+    @Inject
+    protected SecurityContext sc;
+
     @GET
     public Response getStores() {
         servletContext.log("retrieving all stores ...");
@@ -50,6 +57,9 @@ public class StoreResource {
         return response;
     }
 
+    @RolesAllowed({USER_ROLE, ADMIN_ROLE})
+    @GET
+    @Path(RESOURCE_PATH_ID_PATH)
     public Response getStoreById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
         servletContext.log("try to retrieve specific store " + id);
         StorePojo theStore = customerServiceBean.getStoreById(id);

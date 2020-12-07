@@ -61,6 +61,7 @@ public class CustomerResource {
     @Inject
     protected SecurityContext sc;
 
+    @RolesAllowed({USER_ROLE, ADMIN_ROLE})
     @GET
     public Response getCustomers() {
         servletContext.log("retrieving all customers ...");
@@ -69,7 +70,7 @@ public class CustomerResource {
         return response;
     }
        
-    @RolesAllowed({ADMIN_ROLE})
+    @RolesAllowed({USER_ROLE, ADMIN_ROLE})
     @GET
     @Path(RESOURCE_PATH_ID_PATH)
     public Response getCustomerById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
@@ -117,12 +118,12 @@ public class CustomerResource {
     }
     
     //TODO - endpoints for setting up Orders/OrderLines
-    @Transactional
-    public Response addOrder(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, AddressPojo newAddress) {
-      Response response = null;
-      CustomerPojo updatedCustomer = customerServiceBean.setAddressFor(id, newAddress);
-      response = Response.ok(updatedCustomer).build();
-      return response;
-    }
+//    @Transactional
+//    public Response addOrder(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, OrderPojo newOrder) {
+//      Response response = null;
+//      CustomerPojo updatedCustomer = customerServiceBean.setOrderFor(id, newOrder);
+//      response = Response.ok(updatedCustomer).build();
+//      return response;
+//    }                                                              // What about orderlines?
 
 }
