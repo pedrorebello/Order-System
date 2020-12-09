@@ -6,12 +6,18 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -20,6 +26,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 /**
  * Role class used for (JSR-375) Java EE Security authorization/authentication
  */
+@Entity(name = "SecurityRole")
+@Table(name = "SECURITY_ROLE")
 public class SecurityRole implements Serializable {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -34,6 +42,8 @@ public class SecurityRole implements Serializable {
         super();
     }
 
+    @Id
+    @Column(name = "ROLE_ID")
     public int getId() {
         return id;
     }
@@ -41,6 +51,7 @@ public class SecurityRole implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "ROLENAME")
     public String getRoleName() {
         return roleName;
     }
@@ -49,6 +60,7 @@ public class SecurityRole implements Serializable {
     }
 
     @JsonInclude(Include.NON_NULL)
+    @ManyToMany(mappedBy = "roles")
     public Set<SecurityUser> getUsers() {
         return users;
     }

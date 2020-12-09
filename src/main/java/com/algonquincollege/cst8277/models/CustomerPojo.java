@@ -6,21 +6,22 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.CustomerPojo.CUSTOMER_BY_ID_QUERY;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -35,11 +36,15 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity(name = "Customer")
 @Table(name = "CUSTOMER")
 @AttributeOverride(name = "id", column = @Column(name = "CUST_ID"))
-@NamedQuery(name=ALL_CUSTOMERS_QUERY_NAME, query = "select c from Customer c")
+@NamedQueries({
+    @NamedQuery(name = ALL_CUSTOMERS_QUERY_NAME, query = "select c from Customer c"),
+    @NamedQuery(name = CUSTOMER_BY_ID_QUERY, query = "select c from Customer c where c.id = :id")
+})
 public class CustomerPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public static final String ALL_CUSTOMERS_QUERY_NAME = "allCustomers";
+    public static final String CUSTOMER_BY_ID_QUERY = "customersById";
 
     protected String firstName;
     protected String lastName;
@@ -47,7 +52,7 @@ public class CustomerPojo extends PojoBase implements Serializable {
     protected String phoneNumber;
     protected AddressPojo shippingAddress;
     protected AddressPojo billingAddress;
-    protected List<OrderPojo> orders = new ArrayList<>();
+    protected List<OrderPojo> orders;
 	
     // JPA requires each @Entity class have a default constructor
 	public CustomerPojo() {

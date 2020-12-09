@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  *
  */
 package com.algonquincollege.cst8277.rest;
@@ -61,6 +61,7 @@ public class CustomerResource {
     @Inject
     protected SecurityContext sc;
 
+    @RolesAllowed({USER_ROLE, ADMIN_ROLE})
     @GET
     public Response getCustomers() {
         servletContext.log("retrieving all customers ...");
@@ -68,7 +69,10 @@ public class CustomerResource {
         Response response = Response.ok(custs).build();
         return response;
     }
-
+       
+    @RolesAllowed({USER_ROLE, ADMIN_ROLE})
+    @GET
+    @Path(RESOURCE_PATH_ID_PATH)
     public Response getCustomerById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
         servletContext.log("try to retrieve specific customer " + id);
         Response response = null;
@@ -105,6 +109,7 @@ public class CustomerResource {
       return response;
     }
 
+    @Transactional
     public Response addAddressForCustomer(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, AddressPojo newAddress) {
       Response response = null;
       CustomerPojo updatedCustomer = customerServiceBean.setAddressFor(id, newAddress);
@@ -113,5 +118,12 @@ public class CustomerResource {
     }
     
     //TODO - endpoints for setting up Orders/OrderLines
+//    @Transactional
+//    public Response addOrder(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, OrderPojo newOrder) {
+//      Response response = null;
+//      CustomerPojo updatedCustomer = customerServiceBean.setOrderFor(id, newOrder);
+//      response = Response.ok(updatedCustomer).build();
+//      return response;
+//    }                                                              // What about orderlines?
 
 }

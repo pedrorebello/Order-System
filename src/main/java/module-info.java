@@ -16,6 +16,6 @@ open module com.algonquincollege.cst8277.rest.orderSystem {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.fasterxml.jackson.annotation;
-    //3rd-party-modules
+    //3rd-party modules
     requires org.slf4j;
 }

@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  *
  */
 package com.algonquincollege.cst8277.ejb;
@@ -26,6 +26,11 @@ import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_SALTSIZE;
 import static com.algonquincollege.cst8277.utils.MyConstants.USER_ROLE;
 
 import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.CustomerPojo.CUSTOMER_BY_ID_QUERY;
+import static com.algonquincollege.cst8277.models.ProductPojo.ALL_PRODUCTS_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.ProductPojo.PRODUCT_BY_ID_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.StorePojo.ALL_STORES_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.StorePojo.STORE_BY_ID_QUERY_NAME;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -74,11 +79,14 @@ public class CustomerService implements Serializable {
     }
 
     public CustomerPojo getCustomerById(int custPK) {
-        return null;
+        return em.createNamedQuery(CUSTOMER_BY_ID_QUERY, CustomerPojo.class)
+            .setParameter("id", custPK)
+            .getSingleResult();
     }
     
     @Transactional
     public CustomerPojo persistCustomer(CustomerPojo newCustomer) {
+        em.persist(newCustomer); // ???
         return null;
     }
     
@@ -132,15 +140,19 @@ public class CustomerService implements Serializable {
     }
 
     public ProductPojo getProductById(int prodId) {
-        return null;
+        return em.createNamedQuery(PRODUCT_BY_ID_QUERY_NAME, ProductPojo.class)
+            .setParameter("id", prodId)
+            .getSingleResult();
     }
 
     public List<StorePojo> getAllStores() {
-        return null;
+        return em.createNamedQuery(ALL_STORES_QUERY_NAME, StorePojo.class).getResultList();
     }
 
     public StorePojo getStoreById(int id) {
-        return null;
+        return em.createNamedQuery(STORE_BY_ID_QUERY_NAME, StorePojo.class)
+            .setParameter("id", id)
+            .getSingleResult();
     }
     
     /*

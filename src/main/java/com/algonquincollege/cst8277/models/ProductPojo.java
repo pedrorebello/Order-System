@@ -6,9 +6,12 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
+
+import static com.algonquincollege.cst8277.models.ProductPojo.ALL_PRODUCTS_QUERY_NAME;
+import static com.algonquincollege.cst8277.models.ProductPojo.PRODUCT_BY_ID_QUERY_NAME;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -18,6 +21,8 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,12 +32,19 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 *
 * Description: model for the Product object
 */
-@Entity(name="Product")
+@Entity(name = "Product")
 @Table(name = "PRODUCT")
-@AttributeOverride(name = "id", column = @Column(name="PRODUCT_ID"))
+@AttributeOverride(name = "id", column = @Column(name = "PRODUCT_ID"))
+@NamedQueries({
+    @NamedQuery(name = ALL_PRODUCTS_QUERY_NAME, query = "select p from Product p"),
+    @NamedQuery(name = PRODUCT_BY_ID_QUERY_NAME, query = "select p from Product p where p.id = :id")
+})
 public class ProductPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    public static final String ALL_PRODUCTS_QUERY_NAME = "allCustomers";
+    public static final String PRODUCT_BY_ID_QUERY_NAME = "customerById";
+    
     protected String description;
     protected String serialNo;
     protected Set<StorePojo> stores = new HashSet<>();
@@ -55,7 +67,7 @@ public class ProductPojo extends PojoBase implements Serializable {
         this.description = description;
     }
 
-    @Column(name="SERIALNUMBER")
+    @Column(name = "SERIALNUMBER")
     public String getSerialNo() {
         return serialNo;
     }

@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ *             Lillian Poon  - 040...
  */
 package com.algonquincollege.cst8277.models;
 
@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 */
 @Entity(name = "Order")
 @Table(name = "ORDER_TBL")
-@AttributeOverride(name = "id", column = @Column(name="ORDER_ID"))
+@AttributeOverride(name = "id", column = @Column(name = "ORDER_ID"))
 public class OrderPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
