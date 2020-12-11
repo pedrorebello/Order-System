@@ -7,7 +7,7 @@
  *
  * (Modified) @author Maycon Morais - 040944820
  *                    Pedro Rebello - 040960465
- *                    Lillian Poon  - 040...
+ *                    Lillian Poon  - 040899245
  */
 package com.algonquincollege.cst8277;
 
@@ -181,7 +181,7 @@ public class OrderSystemTestSuite {
         assertThat(response.getStatus(), is(200));
         ProductPojo prod = response.readEntity(new GenericType<ProductPojo>(){});
         assertNotNull(prod);
-        assertThat(prod.getSerialNo(), is("Serial 1"));
+        assertThat(prod.getSerialNo(), is("serial1"));
     }
     
     @Test

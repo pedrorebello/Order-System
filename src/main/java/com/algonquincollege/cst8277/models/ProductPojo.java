@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ *             Lillian Poon  - 040899245
  */
 package com.algonquincollege.cst8277.models;
 
@@ -42,7 +42,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class ProductPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static final String ALL_PRODUCTS_QUERY_NAME = "allCustomers";
+    public static final String ALL_PRODUCTS_QUERY_NAME = "allProducts";
     public static final String PRODUCT_BY_ID_QUERY_NAME = "customerById";
     
     protected String description;

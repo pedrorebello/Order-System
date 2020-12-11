@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ *             Lillian Poon  - 040899245
  *
  */
 package com.algonquincollege.cst8277.rest;
@@ -118,6 +118,8 @@ public class CustomerResource {
     }
     
     //TODO - endpoints for setting up Orders/OrderLines
+
+    
 //    @Transactional
 //    public Response addOrder(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, OrderPojo newOrder) {
 //      Response response = null;

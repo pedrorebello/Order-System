@@ -6,7 +6,7 @@
  * 
  * update by : Maycon Morais - 040944820
  *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ *             Lillian Poon  - 040899245
  *
  */
 package com.algonquincollege.cst8277.rest;
@@ -69,7 +69,7 @@ public class ProductResource {
     @RolesAllowed({USER_ROLE, ADMIN_ROLE})
     @GET
     @Path(RESOURCE_PATH_ID_PATH)
-    public Response getProductById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
+    public Response getProductById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {   //do not work
         servletContext.log("try to retrieve specific product " + id);
         ProductPojo theProduct = customerServiceBean.getProductById(id);
         Response response = Response.status( theProduct == null ? NOT_FOUND : OK).entity(theProduct).build();
