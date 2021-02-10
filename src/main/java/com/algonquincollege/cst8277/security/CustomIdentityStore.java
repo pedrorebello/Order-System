@@ -1,9 +1,8 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: CustomIdentityStore.java
  * Course materials (20F) CST 8277
  * @author Mike Norman
  * 
- * Note: students do NOT need to change anything in this class
  */
 package com.algonquincollege.cst8277.security;
 

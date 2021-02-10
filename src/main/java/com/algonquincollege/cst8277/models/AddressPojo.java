@@ -1,12 +1,11 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: AddressPojo.java
  * Course materials (20F) CST 8277
- *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040899245
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.models;
 
@@ -40,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @Table(name = "CUST_ADDR")
 @AttributeOverride(name = "id", column = @Column(name = "ADDR_ID"))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "ADDR_TYPE", columnDefinition = "VARCHAR", length = 1)
+@DiscriminatorColumn(name = "ADDR_TYPE", length = 1)
 public abstract class AddressPojo extends PojoBase implements Serializable {
 
     /** explicit set serialVersionUID */
@@ -75,7 +74,7 @@ public abstract class AddressPojo extends PojoBase implements Serializable {
         this.country = country;
     }
 
-    @Column(name = "POSTAL")
+    @Column(name = "POSTAL_CODE")
     public String getPostal() {
         return postal;
     }

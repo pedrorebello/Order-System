@@ -1,13 +1,11 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: OrderSystemTestSuite.java
  * Course materials (20F) CST 8277
- * (Original Author) Mike Norman
- *
- * @date 2020 10
- *
- * (Modified) @author Maycon Morais - 040944820
- *                    Pedro Rebello - 040960465
- *                    Lillian Poon  - 040899245
+  * @author (original) Mike Norman
+ * 
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277;
 

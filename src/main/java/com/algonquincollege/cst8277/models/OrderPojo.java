@@ -1,12 +1,12 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: OrderPojo.java
  * Course materials (20F) CST 8277
  *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040899245
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.models;
 
@@ -17,6 +17,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -53,7 +54,7 @@ public class OrderPojo extends PojoBase implements Serializable {
     }
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "owningOrder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owningOrder", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	public List<OrderLinePojo> getOrderlines() {
 		return this.orderlines;
 	}
@@ -72,7 +73,7 @@ public class OrderPojo extends PojoBase implements Serializable {
 	}
 
 	@JsonBackReference
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "OWNING_CUST_ID")
 	public CustomerPojo getOwningCustomer() {
 		return this.owningCustomer;

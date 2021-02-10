@@ -1,4 +1,4 @@
-/***************************************************************************f******************u************zz*******y**
+/**
  * File: DriverTestForJPAErrors.java
  * Course materials (20W) CST 8277
  * @author Mike Norman
