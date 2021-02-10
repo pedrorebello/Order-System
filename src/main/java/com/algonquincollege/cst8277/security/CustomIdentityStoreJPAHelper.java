@@ -1,12 +1,11 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: CustomIdentityStoreJPAHelper.java
  * Course materials (20F) CST 8277
- *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.security;
 
@@ -15,48 +14,62 @@ import static com.algonquincollege.cst8277.utils.MyConstants.PARAM1;
 import static com.algonquincollege.cst8277.utils.MyConstants.PU_NAME;
 import static java.util.Collections.emptySet;
 
-import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_ALGORITHM;
-import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_PROPERTY_ALGORITHM;
-import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_ITERATIONS;
-import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_PROPERTY_ITERATIONS;
-import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_SALTSIZE;
-import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_SALT_SIZE;
-import static com.algonquincollege.cst8277.utils.MyConstants.PROPERTY_KEYSIZE;
-import static com.algonquincollege.cst8277.utils.MyConstants.DEFAULT_KEY_SIZE;
-
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.security.enterprise.identitystore.Pbkdf2PasswordHash;
+import javax.servlet.ServletContext;
 import javax.transaction.Transactional;
+import javax.ws.rs.core.Context;
 
 import com.algonquincollege.cst8277.models.SecurityRole;
 import com.algonquincollege.cst8277.models.SecurityUser;
 
-/*
- * Stateless Session bean should also be a Singleton
- */
 @Singleton
 public class CustomIdentityStoreJPAHelper {
 
-    public static final String CUSTOMER_PU = "20f-groupProject-PU";
-
-    @PersistenceContext(name = CUSTOMER_PU)
+    @PersistenceContext(name=PU_NAME)
     protected EntityManager em;
 
-//    @Inject
-//    protected Pbkdf2PasswordHash pbAndjPasswordHash;
-    
+    @Context
+    protected ServletContext servletContext;
+
+    @PostConstruct
+    public void init() {
+        try {
+            Connection con = em.unwrap(Connection.class);
+            Connection unwrappedCon = unwrapConnectionHelper(con);
+            String dbUrl = unwrappedCon.getMetaData().getURL();
+            if (dbUrl.contains("jdbc:h2:mem:20fGroupProject")) {
+                org.h2.tools.Server serverBridge = org.h2.tools.Server.createTcpServer("-tcpPort", "54321", "-tcpAllowOthers").start();
+            }
+        }
+        catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+    private Connection unwrapConnectionHelper(Connection connection) throws
+        ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        Connection unwrappedConnection = null;
+        Class<?> connectionWrapperClass = connection.getClass().getClassLoader().loadClass("com.sun.gjc.spi.base.ConnectionHolder");
+        if(connectionWrapperClass.isInstance(connection) ) {
+            Method unwrapMethod = connectionWrapperClass.getDeclaredMethod("getConnection");
+            unwrappedConnection = (Connection)unwrapMethod.invoke(connection);
+        }
+        return unwrappedConnection;
+    }
+
     public SecurityUser findUserByName(String username) {
         SecurityUser user = null;
         try {
-            //TODO
-
             user = em.createNamedQuery(SECURITY_USER_BY_NAME_QUERY, SecurityUser.class)
                 .setParameter("name", username)
                 .getSingleResult();
@@ -78,13 +91,11 @@ public class CustomIdentityStoreJPAHelper {
 
     @Transactional
     public void saveSecurityUser(SecurityUser user) {
-        //TODO
         em.persist(user);
     }
 
     @Transactional
     public void saveSecurityRole(SecurityRole role) {
-        //TODO
         em.persist(role);
     }
 }

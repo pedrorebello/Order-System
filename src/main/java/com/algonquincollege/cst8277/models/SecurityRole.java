@@ -1,22 +1,27 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: SecurityRole.java
  * Course materials (20F) CST 8277
  *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.models;
+
+import static com.algonquincollege.cst8277.models.SecurityRole.ROLE_BY_NAME_QUERY;
 
 import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -28,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  */
 @Entity(name = "SecurityRole")
 @Table(name = "SECURITY_ROLE")
+@NamedQuery(name=ROLE_BY_NAME_QUERY, query = "select r from SecurityRole r where r.roleName = :param1")
 public class SecurityRole implements Serializable {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -43,6 +49,7 @@ public class SecurityRole implements Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ROLE_ID")
     public int getId() {
         return id;

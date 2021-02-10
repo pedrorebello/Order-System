@@ -1,12 +1,12 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: OrderLinePojo.java
  * Course materials (20F) CST 8277
  *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.models;
 
@@ -20,6 +20,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -37,6 +38,7 @@ public class OrderLinePojo implements Serializable {
     protected OrderLinePk primaryKey;
     protected OrderPojo owningOrder;
     protected Double amount;
+    protected Double price;
     protected ProductPojo product;
 
     // JPA requires each @Entity class have a default constructor
@@ -53,7 +55,7 @@ public class OrderLinePojo implements Serializable {
     
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "OWNING_ORDER_ID")
+    @JoinColumn(name = "OWNING_ORDER_ID", referencedColumnName = "ORDER_ID")
     @MapsId("owningOrderId")
     public OrderPojo getOwningOrder() {
         return owningOrder;
@@ -70,8 +72,15 @@ public class OrderLinePojo implements Serializable {
         this.amount = amount;
     }
     
-    @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
+    public Double getPrice() {
+        return price;
+    }
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     public ProductPojo getProduct() {
         return product;
     }

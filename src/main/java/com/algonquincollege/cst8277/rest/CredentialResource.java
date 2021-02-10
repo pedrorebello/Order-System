@@ -1,12 +1,12 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: CredentialResource.java
  * Course materials (20F) CST 8277
  *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  *
  */
 package com.algonquincollege.cst8277.rest;

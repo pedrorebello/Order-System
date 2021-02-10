@@ -1,28 +1,27 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: SecurityUser.java
  * Course materials (20F) CST 8277
- *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon   - 040...
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.models;
 
-import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
-import static com.algonquincollege.cst8277.models.SecurityUser.USER_FOR_OWNING_CUST_QUERY;
 import static com.algonquincollege.cst8277.models.SecurityUser.SECURITY_USER_BY_NAME_QUERY;
+import static com.algonquincollege.cst8277.models.SecurityUser.USER_FOR_OWNING_CUST_QUERY;
 
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -44,13 +43,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Entity(name = "SecurityUser")
 @Table(name = "SECURITY_USER")
 @NamedQueries({
-    @NamedQuery(name = USER_FOR_OWNING_CUST_QUERY,
-                query = "SELECT u FROM SecurityUser u JOIN Customer c WHERE c.id = :id"), // TODO Verify that query!!!
-    @NamedQuery(name = SECURITY_USER_BY_NAME_QUERY,
-                query = " SELECT c FROM SecurityUser c WHERE c.username = :name"),
+    @NamedQuery(name=USER_FOR_OWNING_CUST_QUERY, query="SELECT u FROM SecurityUser u WHERE u.customer.id = :param1"),
+    @NamedQuery(name=SECURITY_USER_BY_NAME_QUERY, query="SELECT u FROM SecurityUser u WHERE u.username = :param1")
 })
-//maycon's version  NamedQuery(name = USER_FOR_OWNING_CUST_QUERY, query = "select c from SecurityUser c where c.CUST_ID = :id")
-//maycon's version  NamedQuery(name = SECURITY_USER_BY_NAME_QUERY, query = "select c from SecurityUser c where c.USERNAME = :username")
 public class SecurityUser implements Serializable, Principal {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -71,6 +66,7 @@ public class SecurityUser implements Serializable, Principal {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
     public int getId() {
         return id;
@@ -98,7 +94,7 @@ public class SecurityUser implements Serializable, Principal {
     
     @JsonInclude(Include.NON_NULL)
     @JsonSerialize(using = SecurityRoleSerializer.class)
-    @ManyToMany
+    @ManyToMany(targetEntity = SecurityRole.class, cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "SECURITY_USER_SECURITY_ROLE",
         joinColumns = @JoinColumn(name="USER_ID", referencedColumnName="USER_ID"),

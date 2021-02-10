@@ -1,12 +1,12 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: OrderLinePk.java
  * Course materials (20F) CST 8277
  *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.models;
 
@@ -19,7 +19,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-@Access(AccessType.PROPERTY) // NOTE: by using this annotations, any annotation on a field is ignored without warning
+@Access(AccessType.PROPERTY)
 public class OrderLinePk implements Serializable {
     /** explicit set serialVersionUID */
     private static final long serialVersionUID = 1L;

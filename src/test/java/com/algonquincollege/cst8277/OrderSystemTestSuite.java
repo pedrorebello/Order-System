@@ -1,13 +1,11 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: OrderSystemTestSuite.java
  * Course materials (20F) CST 8277
- * (Original Author) Mike Norman
- *
- * @date 2020 10
- *
- * (Modified) @author Maycon Morais - 040944820
- *                    Pedro Rebello - 040960465
- *                    Lillian Poon  - 040...
+  * @author (original) Mike Norman
+ * 
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277;
 
@@ -181,7 +179,7 @@ public class OrderSystemTestSuite {
         assertThat(response.getStatus(), is(200));
         ProductPojo prod = response.readEntity(new GenericType<ProductPojo>(){});
         assertNotNull(prod);
-        assertThat(prod.getSerialNo(), is("Serial 1"));
+        assertThat(prod.getSerialNo(), is("serial1"));
     }
     
     @Test

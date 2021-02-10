@@ -1,12 +1,12 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: CustomerPojo.java
  * Course materials (20F) CST 8277
  *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.models;
 
@@ -14,12 +14,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import static com.algonquincollege.cst8277.models.CustomerPojo.ALL_CUSTOMERS_QUERY_NAME;
-import static com.algonquincollege.cst8277.models.CustomerPojo.CUSTOMER_BY_ID_QUERY;
 
-import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -35,16 +34,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 */
 @Entity(name = "Customer")
 @Table(name = "CUSTOMER")
-@AttributeOverride(name = "id", column = @Column(name = "CUST_ID"))
-@NamedQueries({
-    @NamedQuery(name = ALL_CUSTOMERS_QUERY_NAME, query = "select c from Customer c"),
-    @NamedQuery(name = CUSTOMER_BY_ID_QUERY, query = "select c from Customer c where c.id = :id")
-})
+@NamedQueries(
+    @NamedQuery(name=ALL_CUSTOMERS_QUERY_NAME, query = "select c from Customer c")
+)
 public class CustomerPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public static final String ALL_CUSTOMERS_QUERY_NAME = "allCustomers";
-    public static final String CUSTOMER_BY_ID_QUERY = "customersById";
 
     protected String firstName;
     protected String lastName;
@@ -121,7 +117,7 @@ public class CustomerPojo extends PojoBase implements Serializable {
     }
     
     @JsonManagedReference
-    @OneToMany(mappedBy = "owningCustomer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owningCustomer", cascade = CascadeType.ALL, fetch=FetchType.LAZY)
     public List<OrderPojo> getOrders() {
         return orders;
     }
@@ -131,11 +127,6 @@ public class CustomerPojo extends PojoBase implements Serializable {
     public void addOrder(OrderPojo order) {
         getOrders().add(order);
         order.setOwningCustomer(this);
-    }
-    public OrderPojo removeOrder(OrderPojo order) {
-        getOrders().remove(order);
-        order.setOwningCustomer(null);
-        return order;
     }
 
     @Override

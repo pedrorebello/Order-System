@@ -1,27 +1,26 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: OrderPojo.java
  * Course materials (20F) CST 8277
  *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040...
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  */
 package com.algonquincollege.cst8277.models;
 
 import static com.algonquincollege.cst8277.models.ProductPojo.ALL_PRODUCTS_QUERY_NAME;
-import static com.algonquincollege.cst8277.models.ProductPojo.PRODUCT_BY_ID_QUERY_NAME;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -35,15 +34,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @Entity(name = "Product")
 @Table(name = "PRODUCT")
 @AttributeOverride(name = "id", column = @Column(name = "PRODUCT_ID"))
-@NamedQueries({
-    @NamedQuery(name = ALL_PRODUCTS_QUERY_NAME, query = "select p from Product p"),
-    @NamedQuery(name = PRODUCT_BY_ID_QUERY_NAME, query = "select p from Product p where p.id = :id")
-})
+@NamedQuery(name = ALL_PRODUCTS_QUERY_NAME, query = "select p from Product p")
 public class ProductPojo extends PojoBase implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static final String ALL_PRODUCTS_QUERY_NAME = "allCustomers";
-    public static final String PRODUCT_BY_ID_QUERY_NAME = "customerById";
+    public static final String ALL_PRODUCTS_QUERY_NAME = "allProducts";
     
     protected String description;
     protected String serialNo;
@@ -76,7 +71,7 @@ public class ProductPojo extends PojoBase implements Serializable {
     }
     
     @JsonInclude(Include.NON_NULL)
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", cascade = CascadeType.PERSIST)
     public Set<StorePojo> getStores() {
         return stores;
     }

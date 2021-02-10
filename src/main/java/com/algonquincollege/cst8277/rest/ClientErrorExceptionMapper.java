@@ -1,9 +1,10 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: ClientErrorExceptionMapper.java
  * Course materials (20F) CST 8277
  * @author Mike Norman
  * 
- * Note: students do NOT need to change anything in this class
+ * This isn't 100% necessary, I just like to have a simple JSON response instead of Payara's
+ * default error page which is in HTML
  */
 package com.algonquincollege.cst8277.rest;
 
