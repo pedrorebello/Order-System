@@ -1,12 +1,12 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: CustomerResource.java
  * Course materials (20F) CST 8277
  *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040899245
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  *
  */
 package com.algonquincollege.cst8277.rest;
@@ -28,7 +28,6 @@ import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.security.enterprise.SecurityContext;
 import javax.servlet.ServletContext;
-import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.GET;
@@ -61,8 +60,8 @@ public class CustomerResource {
     @Inject
     protected SecurityContext sc;
 
-    @RolesAllowed({USER_ROLE, ADMIN_ROLE})
     @GET
+    @RolesAllowed({ADMIN_ROLE})
     public Response getCustomers() {
         servletContext.log("retrieving all customers ...");
         List<CustomerPojo> custs = customerServiceBean.getAllCustomers();
@@ -70,8 +69,8 @@ public class CustomerResource {
         return response;
     }
        
-    @RolesAllowed({USER_ROLE, ADMIN_ROLE})
     @GET
+    @RolesAllowed({ADMIN_ROLE,USER_ROLE})
     @Path(RESOURCE_PATH_ID_PATH)
     public Response getCustomerById(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id) {
         servletContext.log("try to retrieve specific customer " + id);
@@ -99,7 +98,8 @@ public class CustomerResource {
         return response;
     }
 
-    @Transactional
+    @POST
+    @RolesAllowed({ADMIN_ROLE})
     public Response addCustomer(CustomerPojo newCustomer) {
       Response response = null;
       CustomerPojo newCustomerWithIdTimestamps = customerServiceBean.persistCustomer(newCustomer);
@@ -109,7 +109,9 @@ public class CustomerResource {
       return response;
     }
 
-    @Transactional
+    @PUT
+    @RolesAllowed({ADMIN_ROLE})
+    @Path(CUSTOMER_ADDRESS_RESOURCE_PATH)
     public Response addAddressForCustomer(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, AddressPojo newAddress) {
       Response response = null;
       CustomerPojo updatedCustomer = customerServiceBean.setAddressFor(id, newAddress);
@@ -120,7 +122,9 @@ public class CustomerResource {
     //TODO - endpoints for setting up Orders/OrderLines
 
     
-//    @Transactional
+//    @PUT
+//    @RolesAllowed({ADMIN_ROLE})
+//    @Path(CUSTOMER_ADDRESS_RESOURCE_PATH)
 //    public Response addOrder(@PathParam(RESOURCE_PATH_ID_ELEMENT) int id, OrderPojo newOrder) {
 //      Response response = null;
 //      CustomerPojo updatedCustomer = customerServiceBean.setOrderFor(id, newOrder);

@@ -1,7 +1,5 @@
 open module com.algonquincollege.cst8277.rest.orderSystem {
-    //Java SE
-    requires java.sql;
-    requires java.instrument;
+	requires org.slf4j;
     // Jakarta EE 8
     requires java.annotation;
     requires java.persistence;
@@ -16,6 +14,6 @@ open module com.algonquincollege.cst8277.rest.orderSystem {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.fasterxml.jackson.annotation;
-    //3rd-party modules
-    requires org.slf4j;
+    requires java.sql;
+    requires com.h2database;
 }

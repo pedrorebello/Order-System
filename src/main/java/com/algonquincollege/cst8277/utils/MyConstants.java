@@ -1,12 +1,11 @@
-/*****************************************************************c******************o*******v******id********
+/**
  * File: MyConstants.java
  * Course materials (20F) CST 8277
- *
- * @author (original) Mike Norman
+  * @author (original) Mike Norman
  * 
- * update by : Maycon Morais - 040944820
- *             Pedro Rebello - 040960465
- *             Lillian Poon  - 040899245
+ * update by : Maycon Morais
+ *             Pedro Rebello
+ *             Lillian Poon
  *
  */
 package com.algonquincollege.cst8277.utils;
@@ -40,6 +39,7 @@ public interface MyConstants {
     public static final String CREDENTIAL_RESOURCE_NAME = "credential";
     public static final String CUSTOMER_RESOURCE_NAME =  "customer";
     public static final String ORDER_RESOURCE_NAME =  "order";
+    public static final String ORDERLINE_RESOURCE_NAME =  "orderLine";
     public static final String PRODUCT_RESOURCE_NAME =  "product";
     public static final String STORE_RESOURCE_NAME =  "store";
     public static final String CUSTOMER_ADDRESS_SUBRESOURCE_NAME =  "address";
@@ -74,7 +74,7 @@ public interface MyConstants {
     public static final String DEFAULT_KEY_SIZE    = "32";
 
     //JPA constants
-    public static final String PU_NAME = "assignment4-PU";
+    public static final String PU_NAME = "20f-groupProject-PU";
     public static final String PARAM1 = "param1";
 
 }
