@@ -4,8 +4,8 @@
 
 Order-System was the final group project for the Enterprise Application Programming at Algonquin College.
 
-It is a back-end JavaEE system to manage products inventory, customers, and orders.
-The application consists of a database that stores products, stores, users, and orders that can be accessed by a REST API and have the access controled by security roles.
+It is a back-end JavaEE system to manage product inventory, customers, and orders.
+The application consists of a database that stores products, stores, users, and orders that can be accessed by a REST API and have the access controlled by security roles.
 
 
 ## Entity-Relationship model
